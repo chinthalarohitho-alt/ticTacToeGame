@@ -11,6 +11,77 @@ let xWins = document.querySelector(".xWins");
 let oWins = document.querySelector(".oWins");
 let highestWin = document.querySelector(".HighestWins");
 let ScoreBoardPreMsg = document.querySelector(".ScoreBoardPreMsg");
+let ChangeMode = document.querySelector(".changeMode");
+let ticTacToeHeader = document.querySelector(".ticTacToeHeader");
+let changeModeInMainMenu = document.querySelector(".changeModeInMainMenu");
+
+let changeMode = "light";
+
+ChangeMode.addEventListener("click", toggleTheme);
+changeModeInMainMenu.addEventListener("click", toggleTheme);
+
+function toggleTheme() {
+  if (changeMode === "light") {
+    dark();
+    changeMode = "dark";
+    ChangeMode.textContent = "Light Mode";
+    changeModeInMainMenu.textContent = "Light Mode";
+  } else {
+    light();
+    changeMode = "light";
+    ChangeMode.textContent = "Dark Mode";
+    changeModeInMainMenu.textContent = "Dark Mode";
+  }
+}
+
+let dark = () => {
+  document.body.style.transition = "background-color 0.5s ease";
+  document.body.style.backgroundColor = "#242424";
+
+  ticTacToeHeader.style.transition = "color 0.5s ease";
+  ticTacToeHeader.style.color = "white";
+
+  const h4AllTags = document.querySelectorAll("h4");
+  h4AllTags.forEach((Tag) => {
+    Tag.style.transition = "color 0.5s ease";
+    Tag.style.color = "white";
+  });
+
+  boxes.forEach((box) => {
+    box.classList.add("darkBox");
+    box.classList.remove("box");
+  });
+
+  HistoryTab.style.transition = "color 0.5s ease";
+  HistoryTab.style.color = "white";
+
+  WInnerText.style.transition = "color 0.5s ease";
+  WInnerText.style.color = "white";
+};
+
+let light = () => {
+  document.body.style.transition = "background-color 0.5s ease";
+  document.body.style.backgroundColor = "rgb(191, 180, 143)";
+
+  ticTacToeHeader.style.transition = "color 0.5s ease";
+  ticTacToeHeader.style.color = "black";
+
+  const h4AllTags = document.querySelectorAll("h4");
+  h4AllTags.forEach((Tag) => {
+    Tag.style.transition = "color 0.5s ease";
+    Tag.style.color = "black";
+  });
+
+  boxes.forEach((box) => {
+    box.classList.remove("darkBox");
+    box.classList.add("box");
+  });
+
+  HistoryTab.style.transition = "color 0.5s ease";
+  HistoryTab.style.color = "black";
+
+  WInnerText.style.color = "black";
+};
 
 let turn0 = true;
 
@@ -63,7 +134,7 @@ const checkWinner = () => {
           xWins.textContent = "Total wins of 'x' is " + xwinsCount;
           winnerText = WInnerText.textContent = "Winner is 'x' 🥳🎉";
           savingInTheHistory();
-           ++xwinsCount;
+          ++xwinsCount;
           highestScore();
           break;
         }
